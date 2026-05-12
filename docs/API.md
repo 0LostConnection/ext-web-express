@@ -75,12 +75,14 @@ Prefixo: **`/feedbacks`**
 
 ---
 
-### `DELETE /feedbacks/remover/:id`
+### `POST /feedbacks/remover/:id`
 
 | | |
 |--|--|
 | **Descrição** | Remove o feedback com o `id` indicado. |
 | **Parâmetros de rota** | `id` — UUID |
+| **Headers** | `Content-Type: application/json` |
+| **Corpo** | `{}` (JSON vazio é aceito) |
 | **Resposta 200** | `{ "status": "success", "message": "Feedback removido", "data": { "id": string } }` |
 | **Resposta 404** | `{ "status": "error", "message": "Feedback não encontrado" }` |
 
@@ -95,4 +97,4 @@ Prefixo: **`/feedbacks`**
 | GET | `/feedbacks/lista` | Listar (alias) |
 | GET | `/feedbacks/:id` | Obter por ID |
 | POST | `/feedbacks/enviar` | Criar |
-| DELETE | `/feedbacks/remover/:id` | Remover |
+| POST | `/feedbacks/remover/:id` | Remover |
