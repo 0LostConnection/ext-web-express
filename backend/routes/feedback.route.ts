@@ -8,5 +8,6 @@ const router = Router();
 router.post("/enviar", validateBody(feedbackSendSchema), FeedbackController.send);
 router.get("/lista", FeedbackController.list);
 router.delete("/remover/:id", FeedbackController.remove);
+router.get("/:id", FeedbackController.getById);
 
 export default router;

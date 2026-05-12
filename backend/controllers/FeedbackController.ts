@@ -28,6 +28,19 @@ class FeedbackController {
             throw err;
         }
     }
+
+    public static async getById(req: Request, res: Response) {
+        try {
+            const feedback = await FeedbackService.findById(req.params.id as string);
+            res.json(feedback);
+        } catch (err) {
+            if (err instanceof Error && err.message === "Feedback não encontrado") {
+                res.status(404).json({ message: err.message });
+                return;
+            }
+            throw err;
+        }
+    }
 }
 
 export default FeedbackController;
