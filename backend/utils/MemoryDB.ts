@@ -1,23 +1,33 @@
 import Feedback from "../models/Feedback";
 
 /**
- * @description MemoryDB é uma classe que simula um banco de dados em memória
+ * @description MemoryDB é uma classe que simula um banco de dados em memória singleton compartilhado pelo processo Node.
  * @author Geovane Saraiva da Silva
  */
-class MemoryDB {
-    private static feedbacks: Feedback[] = [];
+export class MemoryDB {
+    private static instance: MemoryDB | undefined;
+    private feedbacks: Feedback[] = [];
 
-    public static add(feedback: Feedback): void {
+    private constructor() {}
+
+    public static getInstance(): MemoryDB {
+        if (!MemoryDB.instance) {
+            MemoryDB.instance = new MemoryDB();
+        }
+        return MemoryDB.instance;
+    }
+
+    public add(feedback: Feedback): void {
         this.feedbacks.push(feedback);
     }
 
-    public static list(): Feedback[] {
+    public list(): Feedback[] {
         return this.feedbacks;
     }
 
-    public static delete(feedback: Feedback): void {
-        this.feedbacks = this.feedbacks.filter(f => f.id !== feedback.id);
+    public delete(feedback: Feedback): void {
+        this.feedbacks = this.feedbacks.filter((f) => f.id !== feedback.id);
     }
 }
 
-export default MemoryDB;
+export default MemoryDB.getInstance();
