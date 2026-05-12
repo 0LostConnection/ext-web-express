@@ -1,6 +1,7 @@
 import { createRequire } from "node:module";
+import cors from "cors";
 import express from "express";
-import { env } from "./env";
+import { corsAllowedOrigins, env } from "./env";
 import feedbackRouter from "./routes/feedback.route";
 import { sendSuccess } from "./utils/apiResponse";
 
@@ -10,6 +11,13 @@ const { version } = createRequire(import.meta.url)("./package.json") as {
 
 const app = express();
 
+app.use(
+    cors({
+        origin: corsAllowedOrigins(),
+        methods: ["GET", "POST", "OPTIONS", "HEAD"],
+        allowedHeaders: ["Content-Type", "Accept"],
+    }),
+);
 app.use(express.json());
 
 app.get("/", (_req, res) => {

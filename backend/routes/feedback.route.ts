@@ -9,6 +9,6 @@ router.get("/lista", FeedbackController.list);
 router.get("/", FeedbackController.list);
 router.get("/:id", FeedbackController.getById);
 router.post("/enviar", validateBody(feedbackSendSchema), FeedbackController.send);
-router.delete("/remover/:id", FeedbackController.remove);
+router.post("/remover/:id", FeedbackController.remove);
 
 export default router;
