@@ -4,7 +4,10 @@
   "description": "Monorepo raiz — dependências e scripts do backend ficam em backend/",
   "scripts": {
     "dev": "npm run dev --prefix backend",
+    "dev:frontend": "npm run dev --prefix frontend",
     "start": "npm run start --prefix backend",
-    "install:backend": "npm install --prefix backend"
+    "install:backend": "npm install --prefix backend",
+    "install:frontend": "npm install --prefix frontend",
+    "build:frontend": "npm run build --prefix frontend"
   }
 }
