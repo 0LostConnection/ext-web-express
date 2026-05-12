@@ -1,0 +1,25 @@
+import type { RequestHandler } from "express";
+import type { ZodType } from "zod";
+
+/**
+ * @description Middleware para validar o corpo da requisição
+ * @param schema - O schema Zod para validar o corpo da requisição
+ * @returns O middleware para validar o corpo da requisição
+ * @author Geovane Saraiva da Silva
+ */
+export function validateBody(schema: ZodType): RequestHandler {
+    return (req, res, next) => {
+        const parsed = schema.safeParse(req.body);
+
+        if (!parsed.success) {
+            res.status(400).json({
+                message: "Corpo da requisição inválido",
+                errors: parsed.error.flatten(),
+            });
+            return;
+        }
+
+        req.validatedBody = parsed.data;
+        next();
+    };
+}
