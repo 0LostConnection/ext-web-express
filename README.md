@@ -2,6 +2,10 @@
 
 API Express + interface React (Vite). Dados só em memória enquanto o servidor roda. Sem banco, sem API externa.
 
+## Sobre a entrega (atividade)
+
+A interface é uma SPA em React: as rotas `/` e `/feedbacks/lista` rodam no cliente e falam com a API Express em JSON (`fetch`, não form `action`/`method` clássico). Depois de enviar com sucesso, o app navega para a lista no cliente (equivalente ao redirect após o POST). O contrato HTTP (rotas, corpos e envelope de resposta) está em [`docs/API.md`](docs/API.md). O fluxo pedido na atividade (cadastro em memória, listagem com nome e comentário, remoção via POST e lista atualizada) é o mesmo; só a camada de apresentação deixa de ser HTML servido pelo Express na raiz.
+
 ## Pastas
 
 | Pasta | Conteúdo |
@@ -9,6 +13,15 @@ API Express + interface React (Vite). Dados só em memória enquanto o servidor 
 | `backend/` | Express, Zod, CORS |
 | `frontend/` | React: `/` (form) e `/feedbacks/lista` (lista) |
 | `docs/` | `docs/API.md` |
+
+## Persistência em memória (`MemoryDB`)
+
+O backend não usa arquivo nem banco. Os feedbacks ficam num **array em RAM** dentro de `backend/utils/MemoryDB.ts`.
+
+- **Singleton:** uma única instância por processo Node (`getInstance()` + construtor privado). Todo o código que importa o default recebe o mesmo objeto.
+- **Armazenamento:** propriedade privada `feedbacks: Feedback[]`. `add` faz `push`, `list` devolve o array (referência compartilhada), `delete` recria o array sem o item pelo `id`.
+- **Quem usa:** `FeedbackRepository` chama `MemoryDB.add`, `list` e `delete`. Os controllers não enxergam o array direto.
+- **Vida útil:** os dados existem só enquanto o processo do servidor está no ar. Reinício ou crash zera a lista.
 
 ## Requisitos
 
