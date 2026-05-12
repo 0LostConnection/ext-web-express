@@ -1,5 +1,6 @@
 import type { RequestHandler } from "express";
 import type { ZodType } from "zod";
+import { sendError } from "../utils/apiResponse";
 
 /**
  * @description Middleware para validar o corpo da requisição
@@ -12,10 +13,12 @@ export function validateBody(schema: ZodType): RequestHandler {
         const parsed = schema.safeParse(req.body);
 
         if (!parsed.success) {
-            res.status(400).json({
-                message: "Corpo da requisição inválido",
-                errors: parsed.error.flatten(),
-            });
+            sendError(
+                res,
+                400,
+                "Corpo da requisição inválido",
+                parsed.error.flatten(),
+            );
             return;
         }
 

@@ -1,6 +1,12 @@
 import type { Request, Response } from "express";
 import type { FeedbackSendInput } from "../schemas/feedbackSend.schema";
 import FeedbackService from "../services/FeedbackService";
+import {
+    sendCreated,
+    sendError,
+    sendRemoved,
+    sendSuccess,
+} from "../utils/apiResponse";
 
 class FeedbackController {
     public static async send(req: Request, res: Response) {
@@ -8,21 +14,22 @@ class FeedbackController {
 
         const feedback = await FeedbackService.send(userName, message);
 
-        res.status(201).json(feedback);
+        sendCreated(res, feedback);
     }
 
     public static async list(_req: Request, res: Response) {
         const items = await FeedbackService.list();
-        res.json(items);
+        sendSuccess(res, items);
     }
 
     public static async remove(req: Request, res: Response) {
+        const id = req.params.id as string;
         try {
-            await FeedbackService.delete(req.params.id as string);
-            res.status(204).send();
+            await FeedbackService.delete(id);
+            sendRemoved(res, id);
         } catch (err) {
             if (err instanceof Error && err.message === "Feedback não encontrado") {
-                res.status(404).json({ message: err.message });
+                sendError(res, 404, err.message);
                 return;
             }
             throw err;
@@ -32,10 +39,10 @@ class FeedbackController {
     public static async getById(req: Request, res: Response) {
         try {
             const feedback = await FeedbackService.findById(req.params.id as string);
-            res.json(feedback);
+            sendSuccess(res, feedback);
         } catch (err) {
             if (err instanceof Error && err.message === "Feedback não encontrado") {
-                res.status(404).json({ message: err.message });
+                sendError(res, 404, err.message);
                 return;
             }
             throw err;
