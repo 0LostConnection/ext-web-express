@@ -15,6 +15,19 @@ class FeedbackController {
         const items = await FeedbackService.list();
         res.json(items);
     }
+
+    public static async remove(req: Request, res: Response) {
+        try {
+            await FeedbackService.delete(req.params.id as string);
+            res.status(204).send();
+        } catch (err) {
+            if (err instanceof Error && err.message === "Feedback não encontrado") {
+                res.status(404).json({ message: err.message });
+                return;
+            }
+            throw err;
+        }
+    }
 }
 
 export default FeedbackController;
