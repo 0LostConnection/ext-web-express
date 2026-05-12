@@ -6,5 +6,6 @@ import { feedbackSendSchema } from "../schemas/feedbackSend.schema";
 const router = Router();
 
 router.post("/enviar", validateBody(feedbackSendSchema), FeedbackController.send);
+router.get("/lista", FeedbackController.list);
 
 export default router;

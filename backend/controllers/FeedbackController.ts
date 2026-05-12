@@ -10,6 +10,11 @@ class FeedbackController {
 
         res.status(201).json(feedback);
     }
+
+    public static async list(_req: Request, res: Response) {
+        const items = await FeedbackService.list();
+        res.json(items);
+    }
 }
 
 export default FeedbackController;
