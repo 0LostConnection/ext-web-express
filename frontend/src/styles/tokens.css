@@ -1,0 +1,47 @@
+/* Tokens derivados de DESIGN.md — estética Meta-inspired */
+:root {
+    --color-primary: #0064e0;
+    --color-primary-deep: #0457cb;
+    --color-primary-soft: #0091ff;
+    --color-on-primary: #ffffff;
+    --color-ink-button: #000000;
+    --color-on-ink-button: #ffffff;
+    --color-fb-blue: #1876f2;
+    --color-success: #31a24c;
+    --color-critical: #e41e3f;
+    --color-critical-strong: #f0284a;
+    --color-canvas: #ffffff;
+    --color-surface-soft: #f1f4f7;
+    --color-ink-deep: #0a1317;
+    --color-ink: #1c1e21;
+    --color-charcoal: #444950;
+    --color-steel: #5d6c7b;
+    --color-stone: #8595a4;
+    --color-hairline: #ced0d4;
+    --color-hairline-soft: #dee3e9;
+    --color-disabled-text: #bcc0c4;
+
+    --font-display: "Montserrat", "Helvetica Neue", Helvetica, Arial, "Noto Sans",
+        sans-serif;
+
+    --radius-sm: 4px;
+    --radius-md: 6px;
+    --radius-lg: 8px;
+    --radius-xl: 16px;
+    --radius-xxl: 24px;
+    --radius-xxxl: 32px;
+    --radius-full: 100px;
+
+    --space-xxs: 4px;
+    --space-xs: 8px;
+    --space-md: 12px;
+    --space-base: 16px;
+    --space-lg: 20px;
+    --space-xl: 24px;
+    --space-xxl: 32px;
+    --space-section-sm: 48px;
+
+    --shadow-card: rgba(20, 22, 26, 0.12) 0px 1px 4px 0px;
+
+    --container-max: 1280px;
+}

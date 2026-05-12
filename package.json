@@ -1,0 +1,18 @@
+{
+  "name": "ext-web-express",
+  "private": true,
+  "description": "Monorepo raiz — dependências e scripts do backend ficam em backend/",
+  "scripts": {
+    "dev": "npm run dev --prefix backend",
+    "dev:frontend": "npm run dev --prefix frontend",
+    "dev:all": "concurrently -k -n api,vite -c blue,green \"npm run dev\" \"npm run dev:frontend\"",
+    "start": "npm run start --prefix backend",
+    "install:backend": "npm install --prefix backend",
+    "install:frontend": "npm install --prefix frontend",
+    "install:all": "npm install && npm run install:backend && npm run install:frontend",
+    "build:frontend": "npm run build --prefix frontend"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1"
+  }
+}
